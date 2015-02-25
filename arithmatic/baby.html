@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<title>Baby Arithmetic</title>
+
+		<script src="jquery-1.11.2.min.js"></script>
+		<script src="speakClient.js"></script>
+
+
+	</head>
+	<body style="font-size: 70px">
+
+		<div id="audio"></div>
+
+			<div style="margin-top:100px; text-align:center">
+				<span id="zero" style="cursor: pointer">0</span>
+				<span id="one" style="cursor: pointer">1</span>
+				<span id="two" style="cursor: pointer">2</span>
+				<span id="three" style="cursor: pointer">3</span>
+				<span id="four" style="cursor: pointer">4</span>
+				<span id="five" style="cursor: pointer">5</span>
+				<span id="six" style="cursor: pointer">6</span>
+				<span id="seven" style="cursor: pointer">7</span>
+				<span id="eight" style="cursor: pointer">8</span>
+				<span id="nine" style="cursor: pointer">9</span>
+			</div>
+
+			<div style="margin-top:20px; text-align:center">
+				<span id="plus" style="cursor: pointer">+</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span id="minus" style="cursor: pointer">-</span>
+			</div>
+
+
+			<div style="margin-top:20px; text-align:center">
+				<span id="first" style="cursor: pointer"></span>
+				<span id="operator" style="cursor: pointer"></span>
+				<span id="second" style="cursor: pointer"></span>
+				<span style="cursor: pointer">=</span>
+				<span id="result" style="cursor: pointer">????</span>
+
+				<br /><br />
+				<span id="calculate" style="cursor: pointer">[&#10004;]</span>
+				&nbsp; &nbsp; &nbsp; &nbsp; 
+				<span id="clear" style="cursor: pointer">[X]</span>
+
+			</div>
+
+			<script type="text/javascript">
+
+				$(document).ready(function() {
+					$("body").click( function(e) {
+
+						var target = $(e.target);
+
+						if( $("#first").text() == "" ) {
+							setValues($("#first"));
+						} else {
+							setValues($("#second"));
+						}
+
+						function setValues(field) {
+
+							if( target.is('#zero')) {
+								field.text("0");
+								speak("0");
+							} else if( target.is('#one')) {
+								field.text("1");
+								speak("1");
+							} else if( target.is('#two')) {
+								field.text("2");
+								speak("2");
+							} else if( target.is('#three')) {
+								field.text("3");
+								speak("3");
+							} else if( target.is('#four')) {
+								field.text("4");
+								speak("4");
+							} else if( target.is('#five')) {
+								field.text("5");
+								speak("5");
+							} else if( target.is('#six')) {
+								field.text("6");
+								speak("6");
+							} else if( target.is('#seven')) {
+								field.text("7");
+								speak("7");
+							} else if( target.is('#eight')) {
+								field.text("8");
+								speak("8");
+							} else if( target.is('#nine')) {
+								field.text("9");
+								speak("9");
+							} else if( target.is('#plus')) {
+								$("#operator").text("+");
+								speak("plus");
+							} else if( target.is('#minus')) {
+								$("#operator").text("-");
+								speak("minus");
+							} else if( target.is('#clear')) {
+								$("#first").text("");
+								$("#second").text("");
+								$("#operator").text("");
+								$("#result").text("????");
+							} else if( target.is('#calculate')) {
+								var a = parseInt($("#first").text(), 10);
+								var b = parseInt($("#second").text(), 10);
+
+								if($("#operator").text() == "+") {
+									$("#result").text(a+b);
+								} else if($("#operator").text() == "-") {
+									$("#result").text(a-b);
+								}
+
+
+								var operatorAudio = $("#operator").text() == "+" ? "plus" : "minus";
+								var speakText = a + operatorAudio + b + " equals " + $("#result").text();
+
+								speak(speakText);
+
+							}
+
+						}
+					});
+				});
+
+			</script>
+
+	</body>
+</html>
