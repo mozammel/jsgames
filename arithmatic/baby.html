@@ -42,6 +42,8 @@
 				<span id="plus" style="cursor: pointer">+</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<span id="minus" style="cursor: pointer">-</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span id="multiply" style="cursor: pointer">x</span>
 			</div>
 
 
@@ -143,6 +145,9 @@
 							} else if( target.is('#minus')) {
 								$("#operator").text("-");
 								speak("minus");
+							} else if( target.is('#multiply')) {
+								$("#operator").text("x");
+								speak("multiplied by");
 							} else if( target.is('#clear')) {
 								$("#first").text("");
 								$("#second").text("");
@@ -156,12 +161,16 @@
 									$("#result").text(a+b);
 								} else if($("#operator").text() == "-") {
 									$("#result").text(a-b);
+								} else if($("#operator").text() == "x") {
+									$("#result").text(a*b);
 								}
 
 
-								var operatorAudio = $("#operator").text() == "+" ? "plus" : "minus";
+								var operatorAudio = $("#operator").text() == "+" ? " plus " :
+									$("#operator").text() == "-" ? " minus " : " multiplied by ";
 								var speakText = a + operatorAudio + b + " equals " + $("#result").text();
 
+								console.log("speaking: " + speakText);
 								speak(speakText);
 
 							}
